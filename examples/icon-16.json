@@ -1,0 +1,10 @@
+{
+  "prompt": "a tiny crescent moon icon",
+  "width": 16,
+  "height": 16,
+  "palette": {"mode": "fixed", "colors": ["#000000", "#FFFFFF"], "max_colors": 2},
+  "background": {"mode": "transparent", "color": "#000000"},
+  "style": {"profile": "retro_icon", "outline": "none", "shading_levels": 1, "dithering": "off"},
+  "cleanup": {"remove_isolated_pixels": true, "minimum_cluster_size": 2, "binary_alpha": true, "connectivity": 4},
+  "export": {"preview_scale": 12, "save_manifest": true, "save_intermediate": false, "output_dir": "output/icon-16"}
+}

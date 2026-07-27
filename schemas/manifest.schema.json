@@ -1,0 +1,99 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": 2,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "success": {
+      "title": "Success",
+      "type": "boolean"
+    },
+    "request": {
+      "additionalProperties": true,
+      "title": "Request",
+      "type": "object"
+    },
+    "prompt_plan": {
+      "additionalProperties": true,
+      "title": "Prompt Plan",
+      "type": "object"
+    },
+    "palette": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Palette",
+      "type": "array"
+    },
+    "references": {
+      "items": {
+        "type": "string"
+      },
+      "title": "References",
+      "type": "array"
+    },
+    "candidate_scores": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Candidate Scores",
+      "type": "array"
+    },
+    "frame_manifest": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Frame Manifest",
+      "type": "array"
+    },
+    "stage_stats": {
+      "additionalProperties": true,
+      "title": "Stage Stats",
+      "type": "object"
+    },
+    "files": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "title": "Files",
+      "type": "object"
+    },
+    "backend": {
+      "additionalProperties": true,
+      "title": "Backend",
+      "type": "object"
+    },
+    "semantic_review": {
+      "additionalProperties": true,
+      "title": "Semantic Review",
+      "type": "object"
+    },
+    "promoted_files": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Promoted Files",
+      "type": "object"
+    }
+  },
+  "required": [
+    "success",
+    "request",
+    "prompt_plan",
+    "palette"
+  ],
+  "title": "Manifest",
+  "type": "object"
+}

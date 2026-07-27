@@ -1,0 +1,4 @@
+profile: pixel_portrait
+outline: automatic
+shading_levels: 3
+dithering: ordered-bayer-4

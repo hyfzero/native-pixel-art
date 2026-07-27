@@ -1,0 +1,10 @@
+{
+  "prompt": "a side-view alchemist portrait",
+  "width": 64,
+  "height": 64,
+  "palette": {"mode": "adaptive", "colors": [], "max_colors": 16},
+  "background": {"mode": "preserve", "color": "#000000"},
+  "style": {"profile": "pixel_portrait", "outline": "automatic", "shading_levels": 3, "dithering": "ordered-bayer-4"},
+  "cleanup": {"remove_isolated_pixels": true, "minimum_cluster_size": 2, "binary_alpha": true, "connectivity": 8},
+  "export": {"preview_scale": 8, "save_manifest": true, "save_intermediate": true, "output_dir": "output/portrait-64"}
+}

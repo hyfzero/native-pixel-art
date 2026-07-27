@@ -1,0 +1,10 @@
+{
+  "prompt": "a small forest ranger RPG character",
+  "width": 32,
+  "height": 32,
+  "palette": {"mode": "fixed", "colors": ["#1B1B1B", "#4A2B20", "#8A4F32", "#D99A65", "#263B2A", "#486B3C", "#87A85B", "#E8D8A8"], "max_colors": 8},
+  "background": {"mode": "transparent", "color": "#000000"},
+  "style": {"profile": "rpg_character", "outline": "dark", "shading_levels": 2, "dithering": "off"},
+  "cleanup": {"remove_isolated_pixels": true, "minimum_cluster_size": 2, "binary_alpha": true, "connectivity": 4},
+  "export": {"preview_scale": 10, "save_manifest": true, "save_intermediate": false, "output_dir": "output/character-32"}
+}

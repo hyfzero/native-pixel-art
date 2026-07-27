@@ -1,0 +1,767 @@
+{
+  "$defs": {
+    "AlphaConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "binary",
+          "enum": [
+            "binary",
+            "opaque"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "transparent_counts_as_color": {
+          "default": false,
+          "title": "Transparent Counts As Color",
+          "type": "boolean"
+        }
+      },
+      "title": "AlphaConfig",
+      "type": "object"
+    },
+    "AnimationAction": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "count": {
+          "minimum": 1,
+          "title": "Count",
+          "type": "integer"
+        },
+        "fps": {
+          "default": 8,
+          "maximum": 60,
+          "minimum": 1,
+          "title": "Fps",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "start",
+        "count"
+      ],
+      "title": "AnimationAction",
+      "type": "object"
+    },
+    "AnimationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "frame_width": {
+          "default": 32,
+          "maximum": 512,
+          "minimum": 1,
+          "title": "Frame Width",
+          "type": "integer"
+        },
+        "frame_height": {
+          "default": 32,
+          "maximum": 512,
+          "minimum": 1,
+          "title": "Frame Height",
+          "type": "integer"
+        },
+        "frame_count": {
+          "default": 1,
+          "maximum": 64,
+          "minimum": 1,
+          "title": "Frame Count",
+          "type": "integer"
+        },
+        "columns": {
+          "default": 1,
+          "maximum": 64,
+          "minimum": 1,
+          "title": "Columns",
+          "type": "integer"
+        },
+        "rows": {
+          "default": 1,
+          "maximum": 64,
+          "minimum": 1,
+          "title": "Rows",
+          "type": "integer"
+        },
+        "actions": {
+          "items": {
+            "$ref": "#/$defs/AnimationAction"
+          },
+          "title": "Actions",
+          "type": "array"
+        },
+        "baseline_tolerance": {
+          "default": 2,
+          "maximum": 32,
+          "minimum": 0,
+          "title": "Baseline Tolerance",
+          "type": "integer"
+        },
+        "anchor_tolerance": {
+          "default": 2,
+          "maximum": 32,
+          "minimum": 0,
+          "title": "Anchor Tolerance",
+          "type": "integer"
+        }
+      },
+      "title": "AnimationConfig",
+      "type": "object"
+    },
+    "BackgroundConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "transparent",
+          "enum": [
+            "transparent",
+            "solid",
+            "preserve"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "color": {
+          "default": "#000000",
+          "title": "Color",
+          "type": "string"
+        }
+      },
+      "title": "BackgroundConfig",
+      "type": "object"
+    },
+    "CleanupConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "remove_isolated_pixels": {
+          "default": true,
+          "title": "Remove Isolated Pixels",
+          "type": "boolean"
+        },
+        "minimum_cluster_size": {
+          "default": 2,
+          "maximum": 4096,
+          "minimum": 1,
+          "title": "Minimum Cluster Size",
+          "type": "integer"
+        },
+        "binary_alpha": {
+          "default": true,
+          "title": "Binary Alpha",
+          "type": "boolean"
+        },
+        "connectivity": {
+          "default": 4,
+          "enum": [
+            4,
+            8
+          ],
+          "title": "Connectivity",
+          "type": "integer"
+        },
+        "protected_mask": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Protected Mask"
+        }
+      },
+      "title": "CleanupConfig",
+      "type": "object"
+    },
+    "CompositionConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "subject_scale": {
+          "default": 0.8,
+          "maximum": 1.0,
+          "minimum": 0.1,
+          "title": "Subject Scale",
+          "type": "number"
+        },
+        "alignment": {
+          "default": "center",
+          "enum": [
+            "center",
+            "top",
+            "bottom",
+            "left",
+            "right"
+          ],
+          "title": "Alignment",
+          "type": "string"
+        },
+        "padding": {
+          "default": 1,
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Padding",
+          "type": "integer"
+        }
+      },
+      "title": "CompositionConfig",
+      "type": "object"
+    },
+    "DownsampleConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "default": "area",
+          "enum": [
+            "area",
+            "edge_aware"
+          ],
+          "title": "Method",
+          "type": "string"
+        }
+      },
+      "title": "DownsampleConfig",
+      "type": "object"
+    },
+    "ExportConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "preview_scale": {
+          "default": 12,
+          "maximum": 64,
+          "minimum": 1,
+          "title": "Preview Scale",
+          "type": "integer"
+        },
+        "save_manifest": {
+          "default": true,
+          "title": "Save Manifest",
+          "type": "boolean"
+        },
+        "save_intermediate": {
+          "default": true,
+          "title": "Save Intermediate",
+          "type": "boolean"
+        },
+        "output_dir": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Dir"
+        },
+        "overwrite": {
+          "default": false,
+          "title": "Overwrite",
+          "type": "boolean"
+        },
+        "promote": {
+          "default": false,
+          "title": "Promote",
+          "type": "boolean"
+        },
+        "promote_to": {
+          "anyOf": [
+            {
+              "format": "path",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Promote To"
+        },
+        "aseprite": {
+          "default": "auto",
+          "enum": [
+            "off",
+            "auto",
+            "required"
+          ],
+          "title": "Aseprite",
+          "type": "string"
+        }
+      },
+      "title": "ExportConfig",
+      "type": "object"
+    },
+    "GenerationConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "provider": {
+          "default": "offline",
+          "enum": [
+            "offline",
+            "openai",
+            "codex_imagegen"
+          ],
+          "title": "Provider",
+          "type": "string"
+        },
+        "variants": {
+          "default": 3,
+          "maximum": 6,
+          "minimum": 1,
+          "title": "Variants",
+          "type": "integer"
+        },
+        "candidates": {
+          "anyOf": [
+            {
+              "maximum": 6,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Candidates"
+        },
+        "seed": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Seed"
+        },
+        "allow_image_generation": {
+          "default": false,
+          "title": "Allow Image Generation",
+          "type": "boolean"
+        },
+        "backend": {
+          "anyOf": [
+            {
+              "enum": [
+                "local",
+                "openai"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Backend"
+        },
+        "model": {
+          "default": "gpt-image-2",
+          "title": "Model",
+          "type": "string"
+        },
+        "quality": {
+          "default": "medium",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "title": "Quality",
+          "type": "string"
+        }
+      },
+      "title": "GenerationConfig",
+      "type": "object"
+    },
+    "PaletteConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "profile",
+          "enum": [
+            "profile",
+            "fixed",
+            "adaptive",
+            "semantic"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "colors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Colors",
+          "type": "array"
+        },
+        "color_count": {
+          "default": 8,
+          "maximum": 256,
+          "minimum": 1,
+          "title": "Color Count",
+          "type": "integer"
+        },
+        "max_colors": {
+          "anyOf": [
+            {
+              "maximum": 256,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Colors"
+        },
+        "count_rule": {
+          "default": "maximum",
+          "enum": [
+            "exact",
+            "maximum"
+          ],
+          "title": "Count Rule",
+          "type": "string"
+        },
+        "source": {
+          "default": "profile",
+          "enum": [
+            "request",
+            "references",
+            "source",
+            "profile"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "roles": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Roles",
+          "type": "object"
+        },
+        "role_masks": {
+          "additionalProperties": {
+            "format": "path",
+            "type": "string"
+          },
+          "title": "Role Masks",
+          "type": "object"
+        }
+      },
+      "title": "PaletteConfig",
+      "type": "object"
+    },
+    "PixelPatch": {
+      "additionalProperties": false,
+      "properties": {
+        "operation": {
+          "enum": [
+            "set_pixel",
+            "fill_rect"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "color": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Color"
+        },
+        "transparent": {
+          "default": false,
+          "title": "Transparent",
+          "type": "boolean"
+        },
+        "frame": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Frame",
+          "type": "integer"
+        },
+        "x": {
+          "minimum": 0,
+          "title": "X",
+          "type": "integer"
+        },
+        "y": {
+          "minimum": 0,
+          "title": "Y",
+          "type": "integer"
+        },
+        "width": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Width",
+          "type": "integer"
+        },
+        "height": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Height",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "operation",
+        "x",
+        "y"
+      ],
+      "title": "PixelPatch",
+      "type": "object"
+    },
+    "ReferenceConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "default": "auto",
+          "enum": [
+            "auto",
+            "explicit",
+            "none"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "paths": {
+          "items": {
+            "format": "path",
+            "type": "string"
+          },
+          "title": "Paths",
+          "type": "array"
+        },
+        "category": {
+          "default": "any",
+          "enum": [
+            "character",
+            "npc",
+            "enemy",
+            "boss",
+            "item",
+            "tile",
+            "effect",
+            "ui",
+            "any"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "minimum": {
+          "default": 3,
+          "maximum": 12,
+          "minimum": 0,
+          "title": "Minimum",
+          "type": "integer"
+        },
+        "maximum": {
+          "default": 6,
+          "maximum": 12,
+          "minimum": 0,
+          "title": "Maximum",
+          "type": "integer"
+        }
+      },
+      "title": "ReferenceConfig",
+      "type": "object"
+    },
+    "StyleConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "profile": {
+          "default": "clean_sprite",
+          "title": "Profile",
+          "type": "string"
+        },
+        "outline": {
+          "default": "automatic",
+          "enum": [
+            "none",
+            "dark",
+            "light",
+            "automatic",
+            "selective"
+          ],
+          "title": "Outline",
+          "type": "string"
+        },
+        "shading_levels": {
+          "default": 2,
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Shading Levels",
+          "type": "integer"
+        },
+        "dithering": {
+          "default": "off",
+          "enum": [
+            "off",
+            "none",
+            "ordered-bayer-2",
+            "ordered-bayer-4",
+            "floyd-steinberg"
+          ],
+          "title": "Dithering",
+          "type": "string"
+        }
+      },
+      "title": "StyleConfig",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": 2,
+      "maximum": 2,
+      "minimum": 2,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "asset_id": {
+      "default": "pixel_asset",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "description": {
+      "default": "",
+      "title": "Description",
+      "type": "string"
+    },
+    "prompt": {
+      "default": "pixel art subject",
+      "title": "Prompt",
+      "type": "string"
+    },
+    "asset_type": {
+      "default": "static",
+      "enum": [
+        "static",
+        "tile",
+        "animation"
+      ],
+      "title": "Asset Type",
+      "type": "string"
+    },
+    "style_profile": {
+      "default": "generic",
+      "title": "Style Profile",
+      "type": "string"
+    },
+    "project_root": {
+      "anyOf": [
+        {
+          "format": "path",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Project Root"
+    },
+    "project_config": {
+      "anyOf": [
+        {
+          "format": "path",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Project Config"
+    },
+    "width": {
+      "default": 32,
+      "maximum": 512,
+      "minimum": 1,
+      "title": "Width",
+      "type": "integer"
+    },
+    "height": {
+      "default": 32,
+      "maximum": 512,
+      "minimum": 1,
+      "title": "Height",
+      "type": "integer"
+    },
+    "palette": {
+      "$ref": "#/$defs/PaletteConfig"
+    },
+    "alpha": {
+      "$ref": "#/$defs/AlphaConfig"
+    },
+    "background": {
+      "$ref": "#/$defs/BackgroundConfig"
+    },
+    "style": {
+      "$ref": "#/$defs/StyleConfig"
+    },
+    "composition": {
+      "$ref": "#/$defs/CompositionConfig"
+    },
+    "downsample": {
+      "$ref": "#/$defs/DownsampleConfig"
+    },
+    "references": {
+      "$ref": "#/$defs/ReferenceConfig"
+    },
+    "generation": {
+      "$ref": "#/$defs/GenerationConfig"
+    },
+    "cleanup": {
+      "$ref": "#/$defs/CleanupConfig"
+    },
+    "animation": {
+      "$ref": "#/$defs/AnimationConfig"
+    },
+    "patches": {
+      "items": {
+        "$ref": "#/$defs/PixelPatch"
+      },
+      "title": "Patches",
+      "type": "array"
+    },
+    "max_repair_rounds": {
+      "default": 2,
+      "maximum": 2,
+      "minimum": 0,
+      "title": "Max Repair Rounds",
+      "type": "integer"
+    },
+    "export": {
+      "$ref": "#/$defs/ExportConfig"
+    }
+  },
+  "title": "PixelArtRequest",
+  "type": "object"
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Native Pixel Art"
+  short_description: "Exact project-aware pixel art"
+  default_prompt: "Use $native-pixel-art to create or compile a project-aware pixel-art asset with strict dimensions, palette, alpha, and validation."
